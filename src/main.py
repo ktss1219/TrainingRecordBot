@@ -1,8 +1,10 @@
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, ButtonsTemplate, PostbackTemplateAction, TemplateSendMessage, FollowEvent, PostbackEvent
+from apscheduler.schedulers.background import BackgroundScheduler
 import os, dotenv
+import datetime
  
 app = Flask(__name__)
 
@@ -31,14 +33,18 @@ def callback():
     return 'OK'
 
 # ===================================================================
- 
+@handler.add(PostbackEvent)
+def handle_messafe_event(event):
+  handle_message(event)
+
+@handler.add(PostbackEvent)
+def handle_postback(event):
+    data = event.postback.data
+
+    if data in ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']:
 
 # ===================================================================
 
 # python main.py　で動作
 if __name__ == "__main__":
     app.run(port=5000)
-
-# =======feedback system==========
-
-#=================================
