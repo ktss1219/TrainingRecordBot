@@ -1,3 +1,3 @@
 # TrainingRecordBot
 
-人情コンテスト作品
+運動記録LINEbot forライトトレーニー
